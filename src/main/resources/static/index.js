@@ -29,13 +29,15 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         }
     }
 
-    $scope.deleteProductById = function(id) {
-        $http.delete(contextPath + '/delete/' + id)
-            .then(function (response) {
-                console.log(response.data)
-                alert("Продукт успешно удален!")
-                $scope.fillTable();
-            });
+    $scope.deleteProduct = function(product) {
+        if (confirm(`Удалить продукт ${product.name}?`)) {
+            $http.delete(`${contextPath}/delete/${product.id}`)
+                .then(function (response) {
+                    console.log(response.data)
+                    alert("Продукт успешно удален!")
+                    $scope.fillTable();
+                });
+        }
     };
 
     $scope.saveProduct = function(product) {
@@ -47,8 +49,12 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
             });
     };
 
-    $scope.editProduct = function(id, product) {
-
+    $scope.updateProduct = function(product) {
+        $http.put(`${contextPath}/edit/${product.id}`, product)
+            .then(function (response) {
+                console.log(response.data);
+                product.edit = false;
+            });
     };
 
 

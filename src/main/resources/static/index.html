@@ -59,12 +59,12 @@
             </td>
             <td>
                 <span ng-if="!p.edit">{{p.price}}</span>
-                <input class="form-control" ng-model="p.price" ng-if="p.edit">
+                <input type="number" step="100" min="0" class="form-control" ng-model="p.price" ng-if="p.edit">
             </td>
             <td>
-                <button class="btn btn-warning" type="button" ng-if="!p.edit" ng-click="editProduct(p)">Изменить</button>
-                <button class="btn btn-success" type="button" ng-if="p.edit" ng-click="saveProduct(p)">Сохранить</button>
-                <button class="btn btn-danger" type="button" ng-if="!p.edit" ng-click="deleteProductById(p.id)">Удалить</button>
+                <button class="btn btn-warning" type="button" ng-if="!p.edit" ng-click="p.edit = true">Изменить</button>
+                <button class="btn btn-success" type="button" ng-if="p.edit" ng-click="updateProduct(p)">Сохранить</button>
+                <button class="btn btn-danger" type="button" ng-if="!p.edit" ng-click="deleteProduct(p)">Удалить</button>
                 <button class="btn btn-warning" type="button" ng-if="p.edit" ng-click="fillTable()">Отменить</button>
             </td>
         </tr>
