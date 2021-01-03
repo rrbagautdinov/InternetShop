@@ -1,0 +1,15 @@
+spring:
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5433/shop
+    username: postgres
+    password: 14881488Qq
+    driverClassName: org.postgresql.Driver
+
+server:
+  port: 8189
+  servlet:
+    context-path: /shop

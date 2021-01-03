@@ -1,0 +1,78 @@
+<!doctype html>
+
+<html ng-app="app">
+
+<head>
+    <meta charset="utf-8">
+    <title>Интернет-Магазин</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+    <script src="index.js"></script>
+</head>
+
+<body ng-controller="indexController">
+
+<div class="container">
+    <h3>Добавить продукт</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <td>Название</td>
+                <td>Цена</td>
+                <td>Действия</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <input ng-model="newProduct.name" type="text" class="form-control" placeholder="Введите название">
+                </td>
+                <td>
+                    <input ng-model="newProduct.price" type="number" class="form-control" placeholder="Введите цену">
+                </td>
+                <td>
+                    <button class="btn btn-success" ng-click="saveProduct(newProduct)">Добавить</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Список товаров</h3>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <td>id</td>
+            <td>Название</td>
+            <td>Цена</td>
+            <td>Действия</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="p in ProductsList">
+            <td>{{p.id}}</td>
+            <td>
+                <span ng-if="!p.edit">{{p.name}}</span>
+                <input class="form-control" ng-model="p.name" ng-if="p.edit">
+            </td>
+            <td>
+                <span ng-if="!p.edit">{{p.price}}</span>
+                <input class="form-control" ng-model="p.price" ng-if="p.edit">
+            </td>
+            <td>
+                <button class="btn btn-warning" type="button" ng-if="!p.edit" ng-click="editProduct(p)">Изменить</button>
+                <button class="btn btn-success" type="button" ng-if="p.edit" ng-click="saveProduct(p)">Сохранить</button>
+                <button class="btn btn-danger" type="button" ng-if="!p.edit" ng-click="deleteProductById(p.id)">Удалить</button>
+                <button class="btn btn-warning" type="button" ng-if="p.edit" ng-click="fillTable()">Отменить</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div>
+    <h6 align="center">© Роман Багаутдинов {{currentDate}} год.</h6>
+</div>
+</body>
+</html>
