@@ -11,11 +11,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
     $scope.fillTable = function() {
         $http({
             url: contextPath,
-            method: 'GET',
-            // params: {
-            //     min_price: $scope.filter ? $scope.filter.min_price : null,
-            //     max_price: $scope.filter ? $scope.filter.max_price : null
-            // }
+            method: 'GET'
         }).then(function (response) {
             $scope.ProductsList = response.data;
         });
@@ -29,26 +25,34 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         }
     }
 
-    $scope.deleteProductById = function(id) {
-        $http.delete(contextPath + '/delete/' + id)
-            .then(function (response) {
-                console.log(response.data)
-                alert("Продукт успешно удален!")
-                $scope.fillTable();
-            });
+    $scope.deleteProduct = function(product) {
+        if (confirm(`Удалить продукт ${product.name}?`)) {
+            $http.delete(`${contextPath}/delete/${product.id}`)
+                .then(function (response) {
+                    console.log(response.data)
+                    alert("Продукт успешно удален!")
+                    $scope.fillTable();
+                });
+        }
     };
 
     $scope.saveProduct = function(product) {
         $http.post(contextPath + '/add', product)
             .then(function (response) {
                 console.log(response.data);
+                alert("Продукт успешно добавлен!")
                 $scope.clearProduct();
                 $scope.fillTable();
             });
     };
 
-    $scope.editProduct = function(id, product) {
-
+    $scope.updateProduct = function(product) {
+        $http.put(`${contextPath}/edit/${product.id}`, product)
+            .then(function (response) {
+                console.log(response.data);
+                alert("Продукт успешно отредактирован!")
+                product.edit = false;
+            });
     };
 
 

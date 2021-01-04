@@ -1,11 +1,12 @@
 package ru.shop.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import ru.shop.model.Product;
 import org.springframework.stereotype.Service;
 import ru.shop.repository.ProductRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -13,8 +14,8 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepository productRepository;
 
-    public List<Product> findAllProducts() {
-        return productRepository.findAll();
+    public Page<Product> findByName(String name, Pageable pageable) {
+        return productRepository.findByName(name, pageable);
     }
 
     public Optional<Product> findProductById(Long id) {
