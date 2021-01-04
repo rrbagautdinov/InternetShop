@@ -1,21 +1,17 @@
 angular.module('app', []).controller('indexController', function ($scope, $http) {
     const contextPath = 'http://localhost:8189/shop';
-    $scope.currentDate = (new Date()).getFullYear();
+    $scope.currentDate = new Date().getFullYear();
 
     $scope.newProduct = {
         id: null,
         name: null,
         price: null
-    }
+    };
 
     $scope.fillTable = function() {
         $http({
             url: contextPath,
-            method: 'GET',
-            // params: {
-            //     min_price: $scope.filter ? $scope.filter.min_price : null,
-            //     max_price: $scope.filter ? $scope.filter.max_price : null
-            // }
+            method: 'GET'
         }).then(function (response) {
             $scope.ProductsList = response.data;
         });
@@ -26,8 +22,8 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
             id: null,
             name: null,
             price: null
-        }
-    }
+        };
+    };
 
     $scope.deleteProduct = function(product) {
         if (confirm(`Удалить продукт ${product.name}?`)) {
@@ -44,6 +40,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         $http.post(contextPath + '/add', product)
             .then(function (response) {
                 console.log(response.data);
+                alert("Продукт успешно добавлен!")
                 $scope.clearProduct();
                 $scope.fillTable();
             });
@@ -53,6 +50,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         $http.put(`${contextPath}/edit/${product.id}`, product)
             .then(function (response) {
                 console.log(response.data);
+                alert("Продукт успешно отредактирован!")
                 product.edit = false;
             });
     };
