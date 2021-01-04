@@ -1,6 +1,20 @@
 angular.module('app', []).controller('indexController', function ($scope, $http) {
-    const contextPath = 'http://localhost:8189/shop';
+    const contextPath = '/shop';
     $scope.currentDate = new Date().getFullYear();
+
+    $scope.ProductsList = [];
+
+    $scope.totalProducts = 0;
+
+    $scope.totalPages = 0;
+
+    $scope.viewProducts = 0;
+
+    $scope.page = 0;
+
+    $scope.pages = [];
+
+    $scope.search = [];
 
     $scope.newProduct = {
         id: null,
@@ -8,12 +22,30 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         price: null
     };
 
+    $scope.pageRange = function() {
+        const range = [];
+        for (let i = 0; i < $scope.totalPages; i++) {
+            range.push(i);
+        }
+        return range;
+    };
+
     $scope.fillTable = function() {
+        const params = {
+            page: $scope.page
+        };
+
         $http({
             url: contextPath,
-            method: 'GET'
+            method: 'GET',
+            params
         }).then(function (response) {
-            $scope.ProductsList = response.data;
+            $scope.ProductsList = response.data.content;
+            $scope.totalPages = response.data.totalPages;
+            $scope.totalProducts = response.data.totalElements;
+            $scope.viewProducts = response.data.numberOfElements;
+        }).catch((e) => {
+            console.log(e);
         });
     };
 
@@ -24,6 +56,11 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
             price: null
         };
     };
+
+    $scope.paginate = function(page) {
+        $scope.page = page;
+        $scope.fillTable();
+    }
 
     $scope.deleteProduct = function(product) {
         if (confirm(`Удалить продукт ${product.name}?`)) {
