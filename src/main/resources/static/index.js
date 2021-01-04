@@ -1,12 +1,12 @@
 angular.module('app', []).controller('indexController', function ($scope, $http) {
     const contextPath = 'http://localhost:8189/shop';
-    $scope.currentDate = (new Date()).getFullYear();
+    $scope.currentDate = new Date().getFullYear();
 
     $scope.newProduct = {
         id: null,
         name: null,
         price: null
-    }
+    };
 
     $scope.fillTable = function() {
         $http({
@@ -22,8 +22,8 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
             id: null,
             name: null,
             price: null
-        }
-    }
+        };
+    };
 
     $scope.deleteProduct = function(product) {
         if (confirm(`Удалить продукт ${product.name}?`)) {

@@ -20,7 +20,7 @@ public class ProductController {
                                          @RequestParam Optional<Integer> page,
                                          @RequestParam Optional<Integer> size) {
         return productService.findByName(name.orElse("_"),
-                PageRequest.of(page.orElse(0), size.orElse(10)));
+                PageRequest.of(page.orElse(0), size.orElse(5)));
     }
 
     @PostMapping("/add")
