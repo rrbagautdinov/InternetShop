@@ -4,13 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
-import ru.shop.model.Product;
+import ru.shop.entity.Product;
 import ru.shop.service.ProductService;
 
 import java.util.Optional;
 
 @RestController
-@RequestMapping
+@RequestMapping("/products")
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
@@ -19,8 +19,8 @@ public class ProductController {
     public Page<Product> findAllProducts(@RequestParam Optional<String> name,
                                          @RequestParam Optional<Integer> page,
                                          @RequestParam Optional<Integer> size) {
-        return productService.findByName(name.orElse("_"),
-                PageRequest.of(page.orElse(0), size.orElse(5)));
+        return productService.findProductByName(name.orElse("_"),
+                PageRequest.of(page.orElse(0), size.orElse(10)));
     }
 
     @PostMapping("/add")
@@ -33,7 +33,7 @@ public class ProductController {
         return productService.updateProduct(id, product);
     }
 
-    @GetMapping("/get{id}")
+    @GetMapping("/get/{id}")
     public Optional<Product> findProductById(@PathVariable Long id) {
         return productService.findProductById(id);
     }

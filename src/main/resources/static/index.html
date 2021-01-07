@@ -1,92 +1,22 @@
-<!doctype html>
-
-<html ng-app="app">
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Интернет-Магазин</title>
+    <meta charset="UTF-8">
+    <title>Интернет магазин</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
-    <script src="index.js"></script>
+
+    <script src="utils/htmlLoader.js"></script>
 </head>
-
-<body ng-controller="indexController">
-
-<div class="container">
-    <h3>Добавить продукт</h3>
-    <table class="table table-striped table-hover">
-        <thead>
-            <tr>
-                <td>Название</td>
-                <td>Цена</td>
-                <td>Действия</td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <input ng-model="newProduct.name" type="text" class="form-control" placeholder="Введите название">
-                </td>
-                <td>
-                    <input ng-model="newProduct.price" type="number" class="form-control" placeholder="Введите цену">
-                </td>
-                <td>
-                    <button class="btn btn-success" ng-click="saveProduct(newProduct)">Добавить</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-    <h3>Список товаров</h3>
-    <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-            <td>id</td>
-            <td>Название</td>
-            <td>Цена</td>
-            <td>Действия</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="p in ProductsList">
-            <td>{{p.id}}</td>
-            <td>
-                <span ng-if="!p.edit">{{p.name}}</span>
-                <input class="form-control" ng-model="p.name" ng-if="p.edit">
-            </td>
-            <td>
-                <span ng-if="!p.edit">{{p.price}}</span>
-                <input class="form-control" ng-model="p.price" ng-if="p.edit">
-            </td>
-            <td>
-                <button class="btn btn-warning" type="button" ng-if="!p.edit" ng-click="p.edit = true">Изменить</button>
-                <button class="btn btn-success" type="button" ng-if="p.edit" ng-click="updateProduct(p)">Сохранить</button>
-                <button class="btn btn-danger" type="button" ng-if="!p.edit" ng-click="deleteProduct(p)">Удалить</button>
-                <button class="btn btn-warning" type="button" ng-if="p.edit" ng-click="fillTable()">Отменить</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-<nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Назад</a>
-        </li>
-        <li class="page-item active" aria-current="page">
-            <span class="page-link">1</span>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#">Вперед</a>
-        </li>
-    </ul>
-</nav>
+<body>
 <div>
-    <h6 align="center">© Роман Багаутдинов {{currentDate}} год.</h6>
+    <div id="header"></div>
+    <div class="container">
+        <div id="navbar"></div>
+    </div>
+    <div id="footer"></div>
 </div>
 </body>
 </html>

@@ -3,7 +3,7 @@ package ru.shop.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import ru.shop.model.Product;
+import ru.shop.entity.Product;
 import org.springframework.stereotype.Service;
 import ru.shop.repository.ProductRepository;
 
@@ -14,7 +14,7 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepository productRepository;
 
-    public Page<Product> findByName(String name, Pageable pageable) {
+    public Page<Product> findProductByName(String name, Pageable pageable) {
         return productRepository.findByName(name, pageable);
     }
 
@@ -30,11 +30,11 @@ public class ProductService {
         Product productForUpdate = productRepository.findById(id).get();
         productForUpdate.setName(product.getName());
         productForUpdate.setPrice(product.getPrice());
-        return productRepository.save(productForUpdate);
+        productRepository.save(productForUpdate);
+        return productForUpdate;
     }
 
     public void deleteProductById(Long id) {
         productRepository.deleteById(id);
     }
-
 }

@@ -1,5 +1,6 @@
-package ru.shop.model;
+package ru.shop.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -7,6 +8,7 @@ import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "products", schema = "shop")
 public class Product {
@@ -20,5 +22,4 @@ public class Product {
 
     @Column(name = "price")
     private int price;
-
 }
