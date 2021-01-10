@@ -1,5 +1,8 @@
-angular.module('productApp', []).controller('productController', function ($scope, $http) {
-    const contextPath = 'http://localhost:8189/products';
+/**
+ * Контроллер продуктов. Запускается при урл #!/products
+ */
+internetShop.controller('productsController', function ($scope, $http) {
+    const contextPath = '/products';
     $scope.currentDate = new Date().getFullYear();
 
     $scope.ProductsList = [];

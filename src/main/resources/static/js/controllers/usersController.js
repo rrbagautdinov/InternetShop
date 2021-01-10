@@ -1,5 +1,8 @@
-angular.module('userApp', []).controller('userController', function ($scope, $http) {
-    const contextPath = 'http://localhost:8189/users';
+/**
+ * Контроллер пользователей. Запускается при урл #!/users
+ */
+internetShop.controller('usersController', function ($scope, $http) {
+    const contextPath = '/users';
     $scope.currentDate = new Date().getFullYear();
 
     $scope.UsersList = [];
