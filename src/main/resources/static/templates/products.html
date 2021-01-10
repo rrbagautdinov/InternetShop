@@ -1,21 +1,4 @@
-<!doctype html>
-
-<html ng-app="productApp">
-
-<head>
-    <meta charset="utf-8">
-    <title>Интернет-Магазин</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
-    <script src="products.js"></script>
-</head>
-
-<body ng-controller="productController">
-
-<div class="container">
+<div class="products">
     <h5>Добавить продукт</h5>
     <table class="table table-striped table-hover">
         <thead>
@@ -42,7 +25,7 @@
 
     <h5>Список товаров <em class="text-right">(Показано продуктов: {{viewProducts}} из {{totalProducts}})</em></h5>
 
-<!--    страница {{page + 1}}/{{totalPages}}-->
+    <!--    страница {{page + 1}}/{{totalPages}}-->
     <table class="table table-striped table-hover">
         <thead>
         <tr>
@@ -72,19 +55,17 @@
         </tr>
         </tbody>
     </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" ng-class="{disabled: page < 1}">
+                <a class="page-link" href="#" ng-click="paginate(page - 1)">Назад</a>
+            </li>
+            <li class="page-item" ng-repeat="i in pageRange()" ng-class="{disabled: page === i}">
+                <a class="page-link" href="#" ng-click="paginate(i)" [aria-disabled]="true">{{i + 1}}</a>
+            </li>
+            <li class="page-item" ng-class="{disabled: page >= totalPages - 1}">
+                <a class="page-link" href="#" ng-click="paginate(page + 1)">Вперед</a>
+            </li>
+        </ul>
+    </nav>
 </div>
-<nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-        <li class="page-item" ng-class="{disabled: page < 1}">
-            <a class="page-link" href="#" ng-click="paginate(page - 1)">Назад</a>
-        </li>
-        <li class="page-item" ng-repeat="i in pageRange()" ng-class="{disabled: page === i}">
-            <a class="page-link" href="#" ng-click="paginate(i)" [aria-disabled]="true">{{i + 1}}</a>
-        </li>
-        <li class="page-item" ng-class="{disabled: page >= totalPages - 1}">
-            <a class="page-link" href="#" ng-click="paginate(page + 1)">Вперед</a>
-        </li>
-    </ul>
-</nav>
-</body>
-</html>
