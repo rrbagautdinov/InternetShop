@@ -43,7 +43,6 @@
         <tr>
             <td>id</td>
             <td>Логин</td>
-            <td>Пароль</td>
             <td>Имя</td>
             <td>Фамилия</td>
             <td>Почта</td>
@@ -56,10 +55,6 @@
             <td>
                 <span ng-if="!u.edit">{{u.login}}</span>
                 <input type="text" class="form-control" ng-model="u.login" ng-if="u.edit">
-            </td>
-            <td>
-                <span ng-if="!u.edit">{{u.password}}</span>
-                <input type="password" class="form-control" ng-model="u.password" ng-if="u.edit">
             </td>
             <td>
                 <span ng-if="!u.edit">{{u.name}}</span>

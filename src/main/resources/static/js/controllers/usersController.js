@@ -2,7 +2,7 @@
  * Контроллер пользователей. Запускается при урл #!/users
  */
 internetShop.controller('usersController', function ($scope, $http) {
-    const contextPath = '/users';
+    const contextPath = '/api/v1/users';
     $scope.currentDate = new Date().getFullYear();
 
     $scope.UsersList = [];
@@ -73,7 +73,7 @@ internetShop.controller('usersController', function ($scope, $http) {
 
     $scope.deleteUser = function(user) {
         if (confirm(`Удалить пользователя '${user.name}' с ценой '${user.price}'?`)) {
-            $http.delete(`${contextPath}/delete/${user.id}`)
+            $http.delete(`${contextPath}/${user.id}`)
                 .then(function (response) {
                     console.log(response.data)
                     alert("Пользователь успешно удален!")
@@ -84,7 +84,7 @@ internetShop.controller('usersController', function ($scope, $http) {
 
     $scope.saveUser = function(user) {
         if (confirm(`Сохранить пользователя '${user.name}'?`)) {
-            $http.post(contextPath + '/add', user)
+            $http.post(`${contextPath}`, user)
                 .then(function (response) {
                     console.log(response.data);
                     alert("Пользователь успешно добавлен!")
@@ -97,7 +97,7 @@ internetShop.controller('usersController', function ($scope, $http) {
 
     $scope.updateUser = function(user) {
         if (confirm(`Изменить пользователя '${user.name}'?`)) {
-            $http.put(`${contextPath}/edit/${user.id}`, user)
+            $http.put(`${contextPath}/${user.id}`, user)
                 .then(function (response) {
                     console.log(response.data);
                     alert("Пользователь успешно отредактирован!")

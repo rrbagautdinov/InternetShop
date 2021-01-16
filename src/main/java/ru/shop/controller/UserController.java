@@ -2,43 +2,42 @@ package ru.shop.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
+import ru.shop.dto.UserDto;
 import ru.shop.entity.User;
 import ru.shop.service.UserService;
 
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public Page<User> findAllUsers(@RequestParam Optional<String> name,
-                                      @RequestParam Optional<Integer> page,
-                                      @RequestParam Optional<Integer> size) {
-        return userService.findUserByName(name.orElse("_"),
-                PageRequest.of(page.orElse(0), size.orElse(10)));
+    public Page<UserDto> findAllUsers(@RequestParam(required = false, defaultValue = "1") int page,
+                                      @RequestParam(required = false, defaultValue = "5") int size) {
+        if (page < 1) page = 1;
+        return userService.findAllUsers(page, size);
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public User saveUser(@RequestBody User user) {
         return userService.saveUser(user);
     }
 
-    @PutMapping("/edit/{id}")
+    @PutMapping("/{id}")
     public User updateUser(@PathVariable Long id, @RequestBody User user) {
         return userService.updateUser(id, user);
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public Optional<User> findUserById(@PathVariable Long id) {
         return userService.findUserById(id);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deleteUserById(@PathVariable Long id) {
         userService.deleteUserById(id);
     }

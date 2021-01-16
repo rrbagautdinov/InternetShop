@@ -2,20 +2,27 @@ package ru.shop.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import ru.shop.dto.ProductDto;
+import ru.shop.dto.UserDto;
 import ru.shop.entity.User;
 import ru.shop.repository.UserRepository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
 
-    public Page<User> findUserByName(String name, Pageable pageable) {
-        return userRepository.findByName(name, pageable);
+    public Page<UserDto> findAllUsers(int page, int size) {
+        List<UserDto> listUserDto = userRepository.findAll(PageRequest.of(page - 1, size)).stream().map(UserDto::new).collect(Collectors.toList());
+        return new PageImpl<> (listUserDto);
     }
 
     public Optional<User> findUserById(Long id) {

@@ -2,7 +2,7 @@
  * Контроллер продуктов. Запускается при урл #!/products
  */
 internetShop.controller('productsController', function ($scope, $http) {
-    const contextPath = '/products';
+    const contextPath = '/api/v1/products';
     $scope.currentDate = new Date().getFullYear();
 
     $scope.ProductsList = [];
@@ -67,7 +67,7 @@ internetShop.controller('productsController', function ($scope, $http) {
 
     $scope.deleteProduct = function(product) {
         if (confirm(`Удалить продукт '${product.name}' с ценой '${product.price}'?`)) {
-            $http.delete(`${contextPath}/delete/${product.id}`)
+            $http.delete(`${contextPath}/${product.id}`)
                 .then(function (response) {
                     console.log(response.data)
                     alert("Продукт успешно удален!")
@@ -78,7 +78,7 @@ internetShop.controller('productsController', function ($scope, $http) {
 
     $scope.saveProduct = function(product) {
         if (confirm(`Сохранить продукт '${product.name}' с ценой '${product.price}' рублей?`)) {
-            $http.post(contextPath + '/add', product)
+            $http.post(`${contextPath}`, product)
                 .then(function (response) {
                     console.log(response.data);
                     alert("Продукт успешно добавлен!")
@@ -91,7 +91,7 @@ internetShop.controller('productsController', function ($scope, $http) {
 
     $scope.updateProduct = function(product) {
         if (confirm(`Изменить продукт '${product.name}' с ценой '${product.price}' рублей?`)) {
-            $http.put(`${contextPath}/edit/${product.id}`, product)
+            $http.put(`${contextPath}/${product.id}`, product)
                 .then(function (response) {
                     console.log(response.data);
                     alert("Продукт успешно отредактирован!")
