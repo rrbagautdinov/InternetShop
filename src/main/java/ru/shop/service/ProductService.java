@@ -19,7 +19,10 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     public Page<ProductDto> findAllProducts(int page, int size) {
-        List<ProductDto> listProductDto = productRepository.findAll(PageRequest.of(page - 1, size)).stream().map(ProductDto::new).collect(Collectors.toList());
+        List<ProductDto> listProductDto = productRepository
+                .findAll(PageRequest.of(page - 1, size))
+                .stream().map(ProductDto::new)
+                .collect(Collectors.toList());
         return new PageImpl<> (listProductDto);
     }
 

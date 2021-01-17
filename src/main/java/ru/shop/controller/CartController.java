@@ -6,12 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.shop.dto.ProductDto;
 import ru.shop.entity.Product;
 import ru.shop.exception.ProductNotFoundException;
 import ru.shop.service.CartService;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -23,7 +22,7 @@ public class CartController {
     private final CartService cartService;
 
     @GetMapping
-    public HashMap<Optional<Product>, Integer> showCart() {
+    public Map<Optional<Product>, Integer> showCart() {
         return cartService.showCart();
     }
 
@@ -43,5 +42,10 @@ public class CartController {
         } catch (ProductNotFoundException e) {
             log.error("Ошибка удаления продукта из корзины. Продукт c ID: " + id + " не найден в корзине");
         }
+    }
+
+    @GetMapping("/delete/all")
+    public void deleteAllProductFromCart() {
+        cartService.deleteAllProductFromCart();
     }
 }
