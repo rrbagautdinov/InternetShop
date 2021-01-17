@@ -1,5 +1,8 @@
-angular.module('userApp', []).controller('userController', function ($scope, $http) {
-    const contextPath = 'http://localhost:8189/users';
+/**
+ * Контроллер пользователей. Запускается при урл #!/users
+ */
+internetShop.controller('usersController', function ($scope, $http) {
+    const contextPath = '/api/v1/users';
     $scope.currentDate = new Date().getFullYear();
 
     $scope.UsersList = [];
@@ -70,7 +73,7 @@ angular.module('userApp', []).controller('userController', function ($scope, $ht
 
     $scope.deleteUser = function(user) {
         if (confirm(`Удалить пользователя '${user.name}' с ценой '${user.price}'?`)) {
-            $http.delete(`${contextPath}/delete/${user.id}`)
+            $http.delete(`${contextPath}/${user.id}`)
                 .then(function (response) {
                     console.log(response.data)
                     alert("Пользователь успешно удален!")
@@ -81,7 +84,7 @@ angular.module('userApp', []).controller('userController', function ($scope, $ht
 
     $scope.saveUser = function(user) {
         if (confirm(`Сохранить пользователя '${user.name}'?`)) {
-            $http.post(contextPath + '/add', user)
+            $http.post(`${contextPath}`, user)
                 .then(function (response) {
                     console.log(response.data);
                     alert("Пользователь успешно добавлен!")
@@ -94,7 +97,7 @@ angular.module('userApp', []).controller('userController', function ($scope, $ht
 
     $scope.updateUser = function(user) {
         if (confirm(`Изменить пользователя '${user.name}'?`)) {
-            $http.put(`${contextPath}/edit/${user.id}`, user)
+            $http.put(`${contextPath}/${user.id}`, user)
                 .then(function (response) {
                     console.log(response.data);
                     alert("Пользователь успешно отредактирован!")

@@ -4,7 +4,9 @@ create table shop.products
 		constraint products_pkey
 			primary key,
 	name text not null,
-	price bigserial not null
+	price bigserial not null,
+	created_at text,
+	updated_at text
 );
 
 alter table shop.products owner to postgres;
