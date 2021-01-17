@@ -1,9 +1,9 @@
 package ru.shop.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import ru.shop.entity.Product;
+import ru.shop.exception.ProductNotFoundException;
 
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
@@ -20,12 +20,41 @@ public class CartService {
         return cartList;
     }
 
-    public void addProductToCart(Long id) {
-        cartList.put(Optional.of(productService.findProductById(id).get()), 1);
+//    public void addProductToCart(Long id) throws ProductNotFoundException {
+//        if (productService.findProductById(id).isPresent()) {
+//            Optional<Product> product = Optional.of(productService.findProductById(id).get());
+//            if (cartList.containsKey(product)) {
+//                cartList.put(product, cartList.get(product) + 1);
+//            } else {
+//                cartList.put(product, 1);
+//            }
+//        } else {
+//            throw new ProductNotFoundException("Продукт с id: " + id + " не найден!");
+//        }
+//    }
+
+    public void addProductToCart(Long id) throws ProductNotFoundException {
+        Optional<Product> product = productService.findProductById(id);
+        if (product.isPresent()) {
+            if (!cartList.containsKey(product)) {
+                cartList.put(product, 1);
+            }
+            if (cartList.containsKey(product)) {
+                cartList.put(product, cartList.get(product) + 1);
+            }
+        } else {
+            throw new ProductNotFoundException("Продукт с id: " + id + " не найден!");
+        }
     }
 
-    public void deleteProductFromCart(Long id) {
-        cartList.remove(Optional.of(productService.findProductById(id).get()));
+
+    public void deleteProductFromCart(Long id) throws ProductNotFoundException {
+        Optional<Product> product = productService.findProductById(id);
+        if (cartList.containsKey(product)) {
+            cartList.remove(product);
+        } else {
+            throw new ProductNotFoundException("Продукт с id: " + id + " не найден в корзине!");
+        }
     }
 
     @PostConstruct
