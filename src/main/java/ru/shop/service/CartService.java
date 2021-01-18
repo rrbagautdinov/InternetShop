@@ -1,7 +1,6 @@
 package ru.shop.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import ru.shop.entity.Product;
 import ru.shop.exception.ProductNotFoundException;
@@ -33,7 +32,6 @@ public class CartService {
             throw new ProductNotFoundException("Продукт с id: " + id + " не найден!");
         }
     }
-
 
     public void deleteProductFromCart(Long id) throws ProductNotFoundException {
         Optional<Product> product = productService.findProductById(id);
