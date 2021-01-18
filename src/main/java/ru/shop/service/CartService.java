@@ -1,11 +1,11 @@
 package ru.shop.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import ru.shop.entity.Product;
 import ru.shop.exception.ProductNotFoundException;
 
-import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class CartService {
-    private Map<Optional<Product>, Integer> cartList;
+    private final Map<Optional<Product>, Integer> cartList = new HashMap<>();
     private final ProductService productService;
 
     public Map<Optional<Product>, Integer> showCart() {
@@ -25,8 +25,7 @@ public class CartService {
         Optional<Product> product = productService.findProductById(id);
         if (product.isPresent()) {
             if (!cartList.containsKey(product)) {
-                int productCounter = 0;
-                cartList.put(product, productCounter + 1);
+                cartList.put(product, 1);
             } else {
                 cartList.put(product, cartList.get(product) + 1);
             }
@@ -47,10 +46,5 @@ public class CartService {
 
     public void deleteAllProductFromCart() {
         cartList.clear();
-    }
-
-    @PostConstruct
-    public void init() {
-        cartList = new HashMap<>();
     }
 }
