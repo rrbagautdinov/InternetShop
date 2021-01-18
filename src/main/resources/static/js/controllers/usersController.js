@@ -3,6 +3,17 @@
  */
 internetShop.controller('usersController', function ($scope, $http) {
     const contextPath = '/api/v1/users';
+
+    // Шаблон полей. Чтобы не писать несколько раз одно и то же
+    const newUserTemplate = {
+        id: null,
+        login: null,
+        password: null,
+        name: null,
+        surname: null,
+        email: null
+    };
+
     $scope.currentDate = new Date().getFullYear();
 
     $scope.UsersList = [];
@@ -13,24 +24,18 @@ internetShop.controller('usersController', function ($scope, $http) {
 
     $scope.viewUsers = 0;
 
-    $scope.page = 0;
+    $scope.page = 1;
 
     $scope.pages = [];
 
     $scope.search = [];
 
-    $scope.newUser = {
-        id: null,
-        login: null,
-        password: null,
-        name: null,
-        surname: null,
-        email: null
-    };
+    // JSON.parse(JSON.stringify(newUserTemplate)) нужно для того что жабаскрипт ебанутый и если ты делаешь правку в $scope.newUserTemplate то и в newUserTemplate тоже изменится
+    $scope.newUser = JSON.parse(JSON.stringify(newUserTemplate));
 
     $scope.pageRange = function() {
         const range = [];
-        for (let i = 0; i < $scope.totalPages; i++) {
+        for (let i = 1; i <= $scope.totalPages; i++) {
             range.push(i);
         }
         return range;
@@ -56,14 +61,7 @@ internetShop.controller('usersController', function ($scope, $http) {
     };
 
     $scope.clearUser = function() {
-        $scope.newProduct = {
-            id: null,
-            login: null,
-            password: null,
-            name: null,
-            surname: null,
-            email: null
-        };
+        $scope.newUser = JSON.parse(JSON.stringify(newUserTemplate));
     };
 
     $scope.paginate = function(page) {
