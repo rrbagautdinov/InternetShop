@@ -3,6 +3,14 @@
  */
 internetShop.controller('productsController', function ($scope, $http) {
     const contextPath = '/api/v1/products';
+
+    // Шаблон полей. Чтобы не писать несколько раз одно и то же
+    const newProductTemplate = {
+        id: null,
+        name: null,
+        price: null
+    };
+
     $scope.currentDate = new Date().getFullYear();
 
     $scope.ProductsList = [];
@@ -13,21 +21,17 @@ internetShop.controller('productsController', function ($scope, $http) {
 
     $scope.viewProducts = 0;
 
-    $scope.page = 0;
+    $scope.page = 1;
 
     $scope.pages = [];
 
     $scope.search = [];
 
-    $scope.newProduct = {
-        id: null,
-        name: null,
-        price: null
-    };
+    $scope.newProduct = JSON.parse(JSON.stringify(newProductTemplate));
 
     $scope.pageRange = function() {
         const range = [];
-        for (let i = 0; i < $scope.totalPages; i++) {
+        for (let i = 1; i <= $scope.totalPages; i++) {
             range.push(i);
         }
         return range;
@@ -53,11 +57,7 @@ internetShop.controller('productsController', function ($scope, $http) {
     };
 
     $scope.clearProduct = function() {
-        $scope.newProduct = {
-            id: null,
-            name: null,
-            price: null
-        };
+        $scope.newProduct = JSON.parse(JSON.stringify(newProductTemplate));
     };
 
     $scope.paginate = function(page) {

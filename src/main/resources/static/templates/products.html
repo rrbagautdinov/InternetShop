@@ -57,13 +57,13 @@
     </table>
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
-            <li class="page-item" ng-class="{disabled: page < 1}">
+            <li class="page-item" ng-class="{disabled: page <= 1}">
                 <a class="page-link" href="#" ng-click="paginate(page - 1)">Назад</a>
             </li>
             <li class="page-item" ng-repeat="i in pageRange()" ng-class="{disabled: page === i}">
-                <a class="page-link" href="#" ng-click="paginate(i)" [aria-disabled]="true">{{i + 1}}</a>
+                <a class="page-link" href="#" ng-click="paginate(i)" [aria-disabled]="true">{{i}}</a>
             </li>
-            <li class="page-item" ng-class="{disabled: page >= totalPages - 1}">
+            <li class="page-item" ng-class="{disabled: page >= totalPages}">
                 <a class="page-link" href="#" ng-click="paginate(page + 1)">Вперед</a>
             </li>
         </ul>
