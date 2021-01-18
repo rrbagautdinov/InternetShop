@@ -3,7 +3,6 @@ package ru.shop.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
-import ru.shop.dto.UserDto;
 import ru.shop.entity.User;
 import ru.shop.service.UserService;
 
