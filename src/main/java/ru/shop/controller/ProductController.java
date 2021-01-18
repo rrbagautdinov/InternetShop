@@ -16,7 +16,7 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-    public Page<ProductDto> findAllProducts(@RequestParam(required = false, defaultValue = "1") int page,
+    public Page<Product> findAllProducts(@RequestParam(required = false, defaultValue = "1") int page,
                                             @RequestParam(required = false, defaultValue = "5") int size) {
         if (page < 1) page = 1;
         return productService.findAllProducts(page, size);

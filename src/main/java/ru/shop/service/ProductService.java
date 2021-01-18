@@ -18,12 +18,8 @@ import java.util.stream.Collectors;
 public class ProductService {
     private final ProductRepository productRepository;
 
-    public Page<ProductDto> findAllProducts(int page, int size) {
-        List<ProductDto> listProductDto = productRepository
-                .findAll(PageRequest.of(page - 1, size))
-                .stream().map(ProductDto::new)
-                .collect(Collectors.toList());
-        return new PageImpl<> (listProductDto);
+    public Page<Product> findAllProducts(int page, int size) {
+        return productRepository.findAll(PageRequest.of(page - 1, size));
     }
 
     public Optional<Product> findProductById(Long id) {

@@ -20,9 +20,9 @@ import java.util.stream.Collectors;
 public class UserService {
     private final UserRepository userRepository;
 
-    public Page<UserDto> findAllUsers(int page, int size) {
-        List<UserDto> listUserDto = userRepository.findAll(PageRequest.of(page - 1, size)).stream().map(UserDto::new).collect(Collectors.toList());
-        return new PageImpl<> (listUserDto);
+    public Page<User> findAllUsers(int page, int size) {
+        return userRepository.findAll(PageRequest.of(page - 1, size));
+
     }
 
     public Optional<User> findUserById(Long id) {
