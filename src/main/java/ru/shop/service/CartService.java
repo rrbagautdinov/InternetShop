@@ -5,41 +5,43 @@ import org.springframework.stereotype.Service;
 import ru.shop.entity.Product;
 import ru.shop.exception.ProductNotFoundException;
 
+import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 
 @Service
 @RequiredArgsConstructor
 public class CartService {
-    private final Map<Optional<Product>, Integer> cartList = new HashMap<>();
     private final ProductService productService;
+    private Map<Product, Integer> cartList;
 
-    public Map<Optional<Product>, Integer> showCart() {
+    public Map<Product, Integer> showCart() {
         return cartList;
     }
 
+    @PostConstruct
+    public void init() {
+        cartList = new HashMap<>();
+    }
+
     public void addProductToCart(Long id) throws ProductNotFoundException {
-        Optional<Product> product = productService.findProductById(id);
-        if (product.isPresent()) {
-            if (!cartList.containsKey(product)) {
-                cartList.put(product, 1);
-            } else {
-                cartList.put(product, cartList.get(product) + 1);
-            }
+        Product product = productService.findProductById(id).orElseThrow(()-> new ProductNotFoundException("Продукт не найден в магазине"));
+        if (!cartList.containsKey(product)) {
+            cartList.put(product, 1);
         } else {
-            throw new ProductNotFoundException("Продукт с id: " + id + " не найден!");
+            cartList.put(product, cartList.get(product) + 1);
         }
     }
 
     public void deleteProductFromCart(Long id) throws ProductNotFoundException {
-        Optional<Product> product = productService.findProductById(id);
+        Product product = productService.findProductById(id).orElseThrow(()-> new ProductNotFoundException("Продукт не найден в магазине"));
         if (cartList.containsKey(product)) {
             cartList.remove(product);
         } else {
-            throw new ProductNotFoundException("Продукт с id: " + id + " не найден в корзине!");
+            throw new ProductNotFoundException("Продукт не найден в корзине");
         }
+
     }
 
     public void deleteAllProductFromCart() {

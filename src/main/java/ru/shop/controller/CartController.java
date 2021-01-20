@@ -11,18 +11,17 @@ import ru.shop.exception.ProductNotFoundException;
 import ru.shop.service.CartService;
 
 import java.util.Map;
-import java.util.Optional;
 
 
 @RestController
 @Slf4j
-@RequestMapping("/cart")
+@RequestMapping("/api/v1/cart")
 @RequiredArgsConstructor
 public class CartController {
     private final CartService cartService;
 
     @GetMapping
-    public Map<Optional<Product>, Integer> showCart() {
+    public Map<Product, Integer> showCart() {
         return cartService.showCart();
     }
 
