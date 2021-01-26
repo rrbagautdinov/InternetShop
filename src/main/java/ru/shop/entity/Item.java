@@ -13,8 +13,8 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "products", schema = "shop")
-public class Product {
+@Table(name = "items", schema = "shop")
+public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -25,6 +25,9 @@ public class Product {
 
     @Column(name = "price")
     private int price;
+
+//    @ManyToMany(mappedBy = "products")
+//    private List<Order> orderList = new ArrayList<>();
 
     @CreationTimestamp
     @Column(name = "created_at")

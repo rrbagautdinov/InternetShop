@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.shop.entity.User;
+import ru.shop.exception.UserNotFoundException;
 import ru.shop.repository.UserRepository;
 
 import java.util.Optional;
@@ -27,8 +28,10 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User updateUser(Long id, User user) {
-        User userForUpdate = userRepository.findById(id).get();
+    public User updateUser(Long id, User user) throws UserNotFoundException {
+        User userForUpdate = userRepository.findById(id).orElseThrow(
+                () -> new UserNotFoundException("Пользователь не найден!")
+        );
         userForUpdate.setLogin(user.getName());
         userForUpdate.setPassword(user.getPassword());
         userForUpdate.setName(user.getName());

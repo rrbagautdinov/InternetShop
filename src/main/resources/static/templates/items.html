@@ -1,4 +1,4 @@
-<div class="products">
+<div class="items">
     <h3>Добавить продукт</h3>
     <table class="table table-striped table-hover">
         <thead>
@@ -11,19 +11,19 @@
         <tbody>
         <tr>
             <td>
-                <input ng-model="newProduct.name" type="text" class="form-control" placeholder="Введите название">
+                <input ng-model="newItem.name" type="text" class="form-control" placeholder="Введите название">
             </td>
             <td>
-                <input ng-model="newProduct.price" type="number" class="form-control" placeholder="Введите цену">
+                <input ng-model="newItem.price" type="number" class="form-control" placeholder="Введите цену">
             </td>
             <td>
-                <button class="btn btn-success" ng-click="saveProduct(newProduct)">Добавить</button>
+                <button class="btn btn-success" ng-click="saveItem(newItem)">Добавить</button>
             </td>
         </tr>
         </tbody>
     </table>
 
-    <h5>Список товаров <em class="text-right">(Показано продуктов: {{viewProducts}} из {{totalProducts}})</em></h5>
+    <h5>Список товаров <em class="text-right">(Показано продуктов: {{viewItems}} из {{totalItems}})</em></h5>
 
     <!--    страница {{page + 1}}/{{totalPages}}-->
     <table class="table table-striped table-hover">
@@ -36,21 +36,21 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="p in ProductsList">
-            <td>{{p.id}}</td>
+        <tr ng-repeat="i in ItemsList">
+            <td>{{i.id}}</td>
             <td>
-                <span ng-if="!p.edit">{{p.name}}</span>
-                <input class="form-control" ng-model="p.name" ng-if="p.edit">
+                <span ng-if="!i.edit">{{i.name}}</span>
+                <input class="form-control" ng-model="i.name" ng-if="i.edit">
             </td>
             <td>
-                <span ng-if="!p.edit">{{p.price}}</span>
-                <input type="number" class="form-control" ng-model="p.price" ng-if="p.edit">
+                <span ng-if="!i.edit">{{i.price}}</span>
+                <input type="number" class="form-control" ng-model="i.price" ng-if="i.edit">
             </td>
             <td>
-                <button class="btn btn-warning" type="button" ng-if="!p.edit" ng-click="p.edit = true">Изменить</button>
-                <button class="btn btn-success" type="button" ng-if="p.edit" ng-click="updateProduct(p)">Сохранить</button>
-                <button class="btn btn-danger" type="button" ng-if="!p.edit" ng-click="deleteProduct(p)">Удалить</button>
-                <button class="btn btn-warning" type="button" ng-if="p.edit" ng-click="fillProductTable()">Отменить</button>
+                <button class="btn btn-warning" type="button" ng-if="!i.edit" ng-click="i.edit = true">Изменить</button>
+                <button class="btn btn-success" type="button" ng-if="i.edit" ng-click="updateItem(i)">Сохранить</button>
+                <button class="btn btn-danger" type="button" ng-if="!i.edit" ng-click="deleteItem(i)">Удалить</button>
+                <button class="btn btn-warning" type="button" ng-if="i.edit" ng-click="fillItemTable()">Отменить</button>
             </td>
         </tr>
         </tbody>

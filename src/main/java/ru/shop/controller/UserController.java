@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import ru.shop.entity.User;
+import ru.shop.exception.UserNotFoundException;
 import ru.shop.service.UserService;
 
 import java.util.Optional;
@@ -27,7 +28,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User user) {
+    public User updateUser(@PathVariable Long id, @RequestBody User user) throws UserNotFoundException {
         return userService.updateUser(id, user);
     }
 

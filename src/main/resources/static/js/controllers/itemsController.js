@@ -1,11 +1,11 @@
 /**
  * Контроллер продуктов. Запускается при урл #!/products
  */
-internetShop.controller('productsController', function ($scope, $http) {
-    const contextPath = '/api/v1/products';
+internetShop.controller('itemsController', function ($scope, $http) {
+    const contextPath = '/api/v1/items';
 
     // Шаблон полей. Чтобы не писать несколько раз одно и то же
-    const newProductTemplate = {
+    const newItemTemplate = {
         id: null,
         name: null,
         price: null
@@ -13,13 +13,13 @@ internetShop.controller('productsController', function ($scope, $http) {
 
     $scope.currentDate = new Date().getFullYear();
 
-    $scope.ProductsList = [];
+    $scope.ItemsList = [];
 
-    $scope.totalProducts = 0;
+    $scope.totalItems = 0;
 
     $scope.totalPages = 0;
 
-    $scope.viewProducts = 0;
+    $scope.viewItems = 0;
 
     $scope.page = 1;
 
@@ -27,7 +27,7 @@ internetShop.controller('productsController', function ($scope, $http) {
 
     $scope.search = [];
 
-    $scope.newProduct = JSON.parse(JSON.stringify(newProductTemplate));
+    $scope.newItem = JSON.parse(JSON.stringify(newItemTemplate));
 
     $scope.pageRange = function() {
         const range = [];
@@ -37,7 +37,7 @@ internetShop.controller('productsController', function ($scope, $http) {
         return range;
     };
 
-    $scope.fillProductTable = function() {
+    $scope.fillItemTable = function() {
         const params = {
             page: $scope.page
         };
@@ -47,59 +47,59 @@ internetShop.controller('productsController', function ($scope, $http) {
             method: 'GET',
             params
         }).then(function (response) {
-            $scope.ProductsList = response.data.content;
+            $scope.ItemsList = response.data.content;
             $scope.totalPages = response.data.totalPages;
-            $scope.totalProducts = response.data.totalElements;
-            $scope.viewProducts = response.data.numberOfElements;
+            $scope.totalItems = response.data.totalElements;
+            $scope.viewItems = response.data.numberOfElements;
         }).catch((e) => {
             console.log(e);
         });
     };
 
-    $scope.clearProduct = function() {
-        $scope.newProduct = JSON.parse(JSON.stringify(newProductTemplate));
+    $scope.clearItem = function() {
+        $scope.newItem = JSON.parse(JSON.stringify(newItemTemplate));
     };
 
     $scope.paginate = function(page) {
         $scope.page = page;
-        $scope.fillProductTable();
+        $scope.fillItemTable();
     }
 
-    $scope.deleteProduct = function(product) {
-        if (confirm(`Удалить продукт '${product.name}' с ценой '${product.price}'?`)) {
-            $http.delete(`${contextPath}/${product.id}`)
+    $scope.deleteItem = function(item) {
+        if (confirm(`Удалить продукт '${item.name}' с ценой '${item.price}'?`)) {
+            $http.delete(`${contextPath}/${item.id}`)
                 .then(function (response) {
                     console.log(response.data)
                     alert("Продукт успешно удален!")
-                    $scope.fillProductTable();
+                    $scope.fillItemTable();
                 });
         }
     };
 
-    $scope.saveProduct = function(product) {
-        if (confirm(`Сохранить продукт '${product.name}' с ценой '${product.price}' рублей?`)) {
-            $http.post(`${contextPath}`, product)
+    $scope.saveItem = function(item) {
+        if (confirm(`Сохранить продукт '${item.name}' с ценой '${item.price}' рублей?`)) {
+            $http.post(`${contextPath}`, item)
                 .then(function (response) {
                     console.log(response.data);
                     alert("Продукт успешно добавлен!")
-                    $scope.clearProduct();
-                    $scope.fillProductTable();
+                    $scope.clearItem();
+                    $scope.fillItemTable();
                 });
         }
 
     };
 
-    $scope.updateProduct = function(product) {
-        if (confirm(`Изменить продукт '${product.name}' с ценой '${product.price}' рублей?`)) {
-            $http.put(`${contextPath}/${product.id}`, product)
+    $scope.updateItem = function(item) {
+        if (confirm(`Изменить продукт '${item.name}' с ценой '${item.price}' рублей?`)) {
+            $http.put(`${contextPath}/${item.id}`, item)
                 .then(function (response) {
                     console.log(response.data);
                     alert("Продукт успешно отредактирован!")
-                    product.edit = false;
+                    item.edit = false;
                 });
         }
     };
 
 
-    $scope.fillProductTable();
+    $scope.fillItemTable();
 });
