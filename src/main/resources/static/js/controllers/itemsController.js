@@ -1,7 +1,7 @@
 /**
  * Контроллер продуктов. Запускается при урл #!/products
  */
-internetShop.controller('itemsController', function ($scope, $http) {
+internetShop.controller('itemsController', function ($scope, $http, $routeParams) {
     const contextPath = '/api/v1/items';
 
     // Шаблон полей. Чтобы не писать несколько раз одно и то же
@@ -21,21 +21,13 @@ internetShop.controller('itemsController', function ($scope, $http) {
 
     $scope.viewItems = 0;
 
-    $scope.page = 1;
+    $scope.page = $routeParams.page ? parseInt($routeParams.page, 10) : 1;
 
     $scope.pages = [];
 
     $scope.search = [];
 
     $scope.newItem = JSON.parse(JSON.stringify(newItemTemplate));
-
-    $scope.pageRange = function() {
-        const range = [];
-        for (let i = 1; i <= $scope.totalPages; i++) {
-            range.push(i);
-        }
-        return range;
-    };
 
     $scope.fillItemTable = function() {
         const params = {

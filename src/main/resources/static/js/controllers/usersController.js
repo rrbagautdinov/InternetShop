@@ -1,7 +1,7 @@
 /**
  * Контроллер пользователей. Запускается при урл #!/users
  */
-internetShop.controller('usersController', function ($scope, $http) {
+internetShop.controller('usersController', function ($scope, $http, $routeParams) {
     const contextPath = '/api/v1/users';
 
     // Шаблон полей. Чтобы не писать несколько раз одно и то же
@@ -24,7 +24,7 @@ internetShop.controller('usersController', function ($scope, $http) {
 
     $scope.viewUsers = 0;
 
-    $scope.page = 1;
+    $scope.page = $routeParams.page ? parseInt($routeParams.page, 10) : 1;
 
     $scope.pages = [];
 
@@ -63,11 +63,6 @@ internetShop.controller('usersController', function ($scope, $http) {
     $scope.clearUser = function() {
         $scope.newUser = JSON.parse(JSON.stringify(newUserTemplate));
     };
-
-    $scope.paginate = function(page) {
-        $scope.page = page;
-        $scope.fillUserTable();
-    }
 
     $scope.deleteUser = function(user) {
         if (confirm(`Удалить пользователя '${user.name}' с ценой '${user.price}'?`)) {
