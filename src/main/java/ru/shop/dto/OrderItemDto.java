@@ -9,14 +9,16 @@ import ru.shop.entity.OrderItem;
 @Data
 public class OrderItemDto {
     private Long id;
-    private String name;
+    private String productTitle;
     private int quantity;
     private int price;
+    private int productsPrice;
 
     public OrderItemDto(OrderItem orderItem) {
         this.id = orderItem.getItem().getId();
-        this.name = orderItem.getItem().getName();
-        this.price = orderItem.getPrice();
+        this.productTitle = orderItem.getItem().getName();
         this.quantity = orderItem.getQuantity();
+        this.price = orderItem.getPrice();
+        this.productsPrice = orderItem.getQuantity() * orderItem.getPrice();
     }
 }
