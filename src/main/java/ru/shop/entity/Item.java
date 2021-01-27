@@ -26,9 +26,6 @@ public class Item {
     @Column(name = "price")
     private int price;
 
-//    @ManyToMany(mappedBy = "products")
-//    private List<Order> orderList = new ArrayList<>();
-
     @CreationTimestamp
     @Column(name = "created_at")
     private Date createdAt;

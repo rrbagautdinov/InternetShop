@@ -32,7 +32,7 @@ public class OrderItem {
         this.item = item;
         this.quantity = 1;
         this.price = item.getPrice();
-        this.totalItemPrice = item.getPrice() * quantity;
+        this.totalItemPrice = price * quantity;
     }
 
     public void incrementProduct() {

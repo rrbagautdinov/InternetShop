@@ -51,7 +51,7 @@ public class Cart {
     public void recalculateCart() {
         totalPrice = 0;
         for (OrderItem op : orderItems) {
-            totalPrice += op.getPrice();
+            totalPrice += op.getTotalItemPrice();
         }
     }
 }
