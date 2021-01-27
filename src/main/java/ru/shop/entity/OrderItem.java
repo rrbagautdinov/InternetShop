@@ -25,23 +25,24 @@ public class OrderItem {
     @Column(name = "price")
     private int price;
 
-    @Column(name = "total_order_price")
-    private int totalOrderPrice;
+    @Column(name = "total_item_price")
+    private int totalItemPrice;
 
     public OrderItem(Item item) {
         this.item = item;
         this.quantity = 1;
-        this.totalOrderPrice = item.getPrice() * this.quantity;
+        this.price = item.getPrice();
+        this.totalItemPrice = item.getPrice() * quantity;
     }
 
     public void incrementProduct() {
         quantity++;
-        totalOrderPrice = item.getPrice() * quantity;
+        totalItemPrice = item.getPrice() * quantity;
     }
 
     public void decrementProduct() {
         quantity--;
-        totalOrderPrice = item.getPrice() * quantity;
+        totalItemPrice = item.getPrice() * quantity;;
     }
 
 }
