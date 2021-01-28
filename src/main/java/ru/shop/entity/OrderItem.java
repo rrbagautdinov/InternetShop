@@ -42,7 +42,7 @@ public class OrderItem {
 
     public void decrementProduct() {
         quantity--;
-        totalItemPrice = item.getPrice() * quantity;;
+        totalItemPrice = item.getPrice() * quantity;
     }
 
 }

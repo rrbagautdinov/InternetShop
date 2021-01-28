@@ -29,6 +29,7 @@ public class Cart {
         for (OrderItem op : orderItems) {
             if (op.getItem().getId().equals(id)) {
                 op.incrementProduct();
+                recalculateCart();
                 return;
             }
         }
