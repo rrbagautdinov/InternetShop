@@ -28,6 +28,13 @@ internetShop.controller('itemsController', function ($scope, $http, $routeParams
     $scope.search = [];
 
     $scope.newItem = JSON.parse(JSON.stringify(newItemTemplate));
+    $scope.pageRange = function() {
+        const range = [];
+        for (let i = 1; i <= $scope.totalPages; i++) {
+            range.push(i);
+        }
+        return range;
+    };
 
     $scope.fillItemTable = function() {
         const params = {
