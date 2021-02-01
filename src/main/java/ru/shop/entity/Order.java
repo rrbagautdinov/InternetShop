@@ -19,13 +19,13 @@ public class Order {
     @Column(name = "id")
     private Long id;
 
-//    @ManyToMany
-//    @JoinTable(name = "orders_products",
-//            joinColumns = @JoinColumn(name = "order_id"),
-//            inverseJoinColumns = @JoinColumn(name = "product_id")
-//    )
-//    @Column(name = "user_id")
-//    private List<Product> productList = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(name = "order_items",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id")
+    )
+    @Column(name = "user_id")
+    private List<OrderItem> productList = new ArrayList<>();
 
     @Column(name = "total_price")
     private int totalPrice;

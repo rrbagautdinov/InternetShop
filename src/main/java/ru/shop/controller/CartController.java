@@ -34,4 +34,14 @@ public class CartController {
     public void clearCart() {
         cart.clearCart();
     }
+
+    @GetMapping("/{id}/increment")
+    public void incrementItem(@PathVariable Long id) {
+        cart.incrementItem(id);
+    }
+
+    @GetMapping("/{id}/decrement")
+    public void decrementItem(@PathVariable Long id) {
+        cart.decrementItem(id);
+    }
 }

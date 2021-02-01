@@ -18,7 +18,9 @@ public class OrderService {
     }
 
     public Order findOrderById(Long id) throws OrderNotFoundException {
-        return orderRepository.findById(id).orElseThrow(() -> new OrderNotFoundException("Заказ не найден!"));
+        return orderRepository.findById(id).orElseThrow(
+                () -> new OrderNotFoundException("Заказ не найден!")
+        );
     }
 
     public Order saveOrder(Order order) {

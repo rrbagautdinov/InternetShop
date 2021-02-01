@@ -1,10 +1,7 @@
 package ru.shop.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.shop.entity.Order;
 import ru.shop.exception.OrderNotFoundException;
 import ru.shop.service.OrderService;
@@ -25,5 +22,10 @@ public class OrderController {
     @GetMapping("/{id}")
     public Order findOrderById(@PathVariable Long id) throws OrderNotFoundException {
         return orderService.findOrderById(id);
+    }
+
+    @PostMapping
+    public Order saveOrder(@RequestBody Order order) {
+        return orderService.saveOrder(order);
     }
 }

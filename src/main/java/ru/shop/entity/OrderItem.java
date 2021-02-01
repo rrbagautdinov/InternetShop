@@ -16,7 +16,7 @@ public class OrderItem {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "item_id")
     private Item item;
 
     @Column(name = "quantity")
@@ -44,5 +44,4 @@ public class OrderItem {
         quantity--;
         totalItemPrice = item.getPrice() * quantity;
     }
-
 }

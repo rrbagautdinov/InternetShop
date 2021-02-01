@@ -44,6 +44,32 @@ public class Cart {
         recalculateCart();
     }
 
+    public void incrementItem(Long id) {
+        for (OrderItem oi : orderItems) {
+            if (oi.getItem().getId().equals(id)) {
+                oi.incrementProduct();
+                recalculateCart();
+                return;
+            }
+        }
+    }
+
+    public void decrementItem(Long id) {
+        for (OrderItem oi : orderItems) {
+            if (oi.getItem().getId().equals(id)) {
+                if (oi.getQuantity() > 1) {
+                    oi.decrementProduct();
+                    recalculateCart();
+                    return;
+                }
+                if (oi.getQuantity() == 1) {
+                    orderItems.removeIf(op -> op.getItem().getId().equals(id));
+                    recalculateCart();
+                }
+            }
+        }
+    }
+
     public void clearCart() {
         orderItems.clear();
         recalculateCart();
