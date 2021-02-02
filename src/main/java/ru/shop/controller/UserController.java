@@ -3,8 +3,8 @@ package ru.shop.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
-import ru.shop.dto.UserDto;
 import ru.shop.entity.User;
+import ru.shop.exception.UserNotFoundException;
 import ru.shop.service.UserService;
 
 import java.util.Optional;
@@ -16,7 +16,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public Page<UserDto> findAllUsers(@RequestParam(required = false, defaultValue = "1") int page,
+    public Page<User> findAllUsers(@RequestParam(required = false, defaultValue = "1") int page,
                                       @RequestParam(required = false, defaultValue = "5") int size) {
         if (page < 1) page = 1;
         return userService.findAllUsers(page, size);
@@ -28,7 +28,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User user) {
+    public User updateUser(@PathVariable Long id, @RequestBody User user) throws UserNotFoundException {
         return userService.updateUser(id, user);
     }
 
