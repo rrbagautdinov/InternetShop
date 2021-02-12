@@ -62,3 +62,7 @@ create table shop.order_items
 
 alter table shop.order_items owner to postgres;
 
+insert into shop.users (login, password, name, surname, email)
+values
+('rbag', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', 'Роман', 'Багаутдинов', 'rbag@mail.ru'),
+('urich', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', 'Александр', 'Урих', 'urich@mail.ru');
