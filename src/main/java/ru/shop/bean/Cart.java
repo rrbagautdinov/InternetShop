@@ -2,7 +2,10 @@ package ru.shop.bean;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
 import ru.shop.entity.OrderItem;
 import ru.shop.entity.Item;
 import ru.shop.exception.ItemNotFoundException;
@@ -14,6 +17,7 @@ import java.util.List;
 
 @Component
 @Data
+@Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 @RequiredArgsConstructor
 public class Cart {
     private final ItemService itemService;

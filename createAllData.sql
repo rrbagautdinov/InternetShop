@@ -11,6 +11,19 @@ create table shop.items
 
 alter table shop.items owner to postgres;
 
+insert into shop.items (name, price)
+values
+    ('Колбаса', 129),
+    ('Ветчина', 149),
+    ('Сыр', 199),
+    ('Хлеб', 50),
+    ('Батон', 45),
+    ('Йогурт', 29),
+    ('Сырок', 39),
+    ('Курица', 259),
+    ('Свинина', 359),
+    ('Вырезка', 189);
+
 create table shop.users
 (
 	id bigserial not null
@@ -66,3 +79,15 @@ insert into shop.users (login, password, name, surname, email)
 values
 ('rbag', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', 'Роман', 'Багаутдинов', 'rbag@mail.ru'),
 ('urich', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', 'Александр', 'Урих', 'urich@mail.ru');
+
+create table shop.roles (
+                       id                      bigserial primary key,
+                       name                    varchar(50) not null unique,
+                       created_at              timestamp default current_timestamp,
+                       updated_at              timestamp default current_timestamp
+);
+
+insert into shop.roles (name)
+values
+('ROLE_USER'),
+('ROLE_ADMIN');
