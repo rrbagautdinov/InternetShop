@@ -4,9 +4,9 @@ spring:
     show-sql: true
   datasource:
     platform: postgres
-    url: jdbc:postgresql://localhost:5433/shop
+    url: jdbc:postgresql://localhost:5432/shop
     username: postgres
-    password: *
+    password: 14881488Qq
     driverClassName: org.postgresql.Driver
 
 server:
