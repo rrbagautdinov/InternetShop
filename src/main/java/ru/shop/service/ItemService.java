@@ -9,8 +9,12 @@ import ru.shop.entity.Item;
 import org.springframework.stereotype.Service;
 import ru.shop.exception.ItemNotFoundException;
 import ru.shop.repository.ItemRepository;
+import ru.shop.soap.products.Products;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -43,5 +47,17 @@ public class ItemService {
 
     public void deleteItemById(Long id) {
         itemRepository.deleteById(id);
+    }
+
+    public static final Function<Item, Products> functionItemToProducts = item -> {
+        Products products = new Products();
+        products.setId(item.getId());
+        products.setName(item.getName());
+        products.setPrice(item.getPrice());
+        return products;
+    };
+
+    public List<Products> getAllProducts() {
+        return itemRepository.findAll().stream().map(functionItemToProducts).collect(Collectors.toList());
     }
 }
